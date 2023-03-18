@@ -1,0 +1,309 @@
+openapi: 3.0.3
+info:
+  title: Education API v1
+  description: |-
+    This is a
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+  - url: http://127.0.0.1:8080/v1
+tags:
+  - name: Higher Education
+paths:
+  /students_growth:
+    get:
+      tags:
+        - Higher Education
+      summary: Get number of students growth in years
+      parameters:
+        - name: start_year
+          in: query
+          description: Start of the academic year
+          required: true
+          schema:
+            type: integer
+        - name: end_year
+          in: query
+          description: End of the academic year
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  counts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/StudentsGrowth'
+        '400':
+          description: Invalid
+  /international_students_growth:
+    get:
+      tags:
+        - Higher Education
+      summary: Get number of international students growth in years
+      parameters:
+        - name: start_year
+          in: query
+          description: Start of the academic year
+          required: true
+          schema:
+            type: integer
+        - name: end_year
+          in: query
+          description: End of the academic year
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  counts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/InternationalStudentsGrowth'
+        '400':
+          description: Invalid
+  /graduates_degree:
+    get:
+      tags:
+        - Higher Education
+      summary: Get number of graduates' degree
+      parameters:
+        - name: year
+          in: query
+          description: Academic year
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  associate:
+                    type: integer
+                    format: int64
+                    example: 17718
+                  bachelor:
+                    type: integer
+                    format: int64
+                    example: 208741
+                  master:
+                    type: integer
+                    format: int64
+                    example: 54398
+                  doctoral:
+                    type: integer
+                    format: int64
+                    example: 3557
+                  total:
+                    type: integer
+                    format: int64
+                    example: 284414
+        '400':
+          description: Invalid
+  /graduates_decipline:
+    get:
+      tags:
+        - Higher Education
+      summary: Get number of graduates' decipline into three categories
+      parameters:
+        - name: start_year
+          in: query
+          description: Start of the academic year
+          required: true
+          schema:
+            type: integer
+        - name: end_year
+          in: query
+          description: End of the academic year
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  counts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Decipline'
+        '400':
+          description: Invalid
+  /faculty_rank:
+    get:
+      tags:
+        - Higher Education
+      summary: Get number of faculty rank
+      parameters:
+        - name: year
+          in: query
+          description: Academic year
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  professor:
+                    type: integer
+                    format: int64
+                    example: 13740
+                  associate_professor:
+                    type: integer
+                    format: int64
+                    example: 13882
+                  assistant_professor:
+                    type: integer
+                    format: int64
+                    example: 12410
+                  lecturer:
+                    type: integer
+                    format: int64
+                    example: 3652
+                  others:
+                    type: integer
+                    format: int64
+                    example: 1435
+                  total:
+                    type: integer
+                    format: int64
+                    example: 45119
+        '400':
+          description: Invalid
+  /student_faculty_ratio:
+    get:
+      tags:
+        - Higher Education
+      summary: Get number of student-faculty ratio
+      parameters:
+        - name: start_year
+          in: query
+          description: Start of the academic year
+          required: true
+          schema:
+            type: integer
+        - name: end_year
+          in: query
+          description: End of the academic year
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  counts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/StudentFacultyRatio'
+        '400':
+          description: Invalid
+
+components:
+  schemas:
+    Count:
+      required:
+        - number
+        - growth_rate
+      type: object
+      properties:
+        number:
+          type: number
+          example: 17454
+        growth:
+          type: number
+          example: 43.6
+    StudentsGrowth:
+      required:
+        - female
+        - male
+        - total
+      type: object
+      properties:
+        female:
+          $ref: '#/components/schemas/Count'
+        male:
+          $ref: '#/components/schemas/Count'
+        total:
+          $ref: '#/components/schemas/Count'
+    InternationalStudentsGrowth:
+      required:
+        - mainland_china
+        - hong_kong_macau
+        - southbound_countries
+        - others
+        - total
+      type: object
+      properties:
+        mainland_china:
+          $ref: '#/components/schemas/Count'
+        hong_kong_macau:
+          $ref: '#/components/schemas/Count'
+        southbound_countries:
+          $ref: '#/components/schemas/Count'
+        other_regions:
+          $ref: '#/components/schemas/Count'
+        total:
+          $ref: '#/components/schemas/Count'
+    Decipline:
+      required:
+        - humanities
+        - social_science
+        - technology
+        - total
+      type: object
+      properties:
+        humanities:
+          $ref: '#/components/schemas/Count'
+        social_science:
+          $ref: '#/components/schemas/Count'
+        technology:
+          $ref: '#/components/schemas/Count'
+        total:
+          $ref: '#/components/schemas/Count'
+    StudentFacultyRatio:
+      required:
+        - junior_college
+        - college
+        - university
+        - total
+      type: object
+      properties:
+        junior_college:
+          $ref: '#/components/schemas/Count'
+        college:
+          $ref: '#/components/schemas/Count'
+        university:
+          $ref: '#/components/schemas/Count'
+        total:
+          $ref: '#/components/schemas/Count'
