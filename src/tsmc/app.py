@@ -42,8 +42,12 @@ def metrics():
     return get_latest_metrics()
 
 
-if __name__ == '__main__':
+def main():
     dao = SQLiteDAO()
     dao.connect(db_path='data.db')
     app.dao = dao
     app.run()
+
+
+if __name__ == '__main__':
+    main()
