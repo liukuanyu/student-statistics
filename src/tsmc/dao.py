@@ -43,7 +43,6 @@ class DataAccessObject:
 class SQLiteDAO(DataAccessObject):
     def __init__(self):
         self._db = None
-        self._columns = None
 
     def connect(self, **kwargs):
         self._db = sqlite3.connect(kwargs['db_path'])
