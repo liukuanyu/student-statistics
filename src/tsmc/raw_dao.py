@@ -57,6 +57,9 @@ class RawDataAccessObject:
     def insert_graduates_by_school_gender(self, values):
         raise NotImplementedError('subclass should implement this method')
 
+    def select_graduates(self, school_year):
+        raise NotImplementedError('subclass should implement this method')
+
 
 class RawSQLiteDAO(RawDataAccessObject):
     def __init__(self):
