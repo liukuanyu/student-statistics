@@ -4,8 +4,8 @@ import csv
 import tempfile
 import argparse
 
-from loader import LOADERS
-from raw_dao import RawSQLiteDAO, StudentsBySchoolGenderCOLUMNS, \
+from .loader import LOADERS
+from .raw_dao import RawSQLiteDAO, StudentsBySchoolGenderCOLUMNS, \
     GraduatesBySchoolGenderCOLUMNS
 
 

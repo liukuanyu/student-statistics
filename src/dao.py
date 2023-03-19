@@ -60,7 +60,7 @@ class SQLiteDAO(DataAccessObject):
                 female INT,
                 female_growth REAL
             );
-            
+
             CREATE TABLE IF NOT EXISTS graduates_by_degree (
                 school_year INT,
                 total INT,

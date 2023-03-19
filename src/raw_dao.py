@@ -1,5 +1,5 @@
 import sqlite3
-from const import *
+from .const import *
 
 StudentsBySchoolGenderCOLUMNS = {
     'school_id': 0,
@@ -96,7 +96,7 @@ class RawSQLiteDAO(RawDataAccessObject):
                 city_name TEXT,
                 school_system TEXT
             );
-            
+
             CREATE TABLE IF NOT EXISTS graduates_by_school_gender (
                 school_year INT,
                 school_id INT,
@@ -112,8 +112,11 @@ class RawSQLiteDAO(RawDataAccessObject):
         )
 
     def insert_students_by_school_gender(self, values):
-        sql_cmd = self._get_insert_cmd('students_by_school_gender',
-                                       ['school_year'] + list(StudentsBySchoolGenderCOLUMNS.keys()))
+        sql_cmd = self._get_insert_cmd(
+            'students_by_school_gender',
+            ['school_year'] +
+            list(
+                StudentsBySchoolGenderCOLUMNS.keys()))
         self._db.execute(sql_cmd, values)
         self._db.commit()
 
@@ -151,8 +154,11 @@ class RawSQLiteDAO(RawDataAccessObject):
         }
 
     def insert_graduates_by_school_gender(self, values):
-        sql_cmd = self._get_insert_cmd('graduates_by_school_gender',
-                                       ['school_year'] + list(GraduatesBySchoolGenderCOLUMNS.keys()))
+        sql_cmd = self._get_insert_cmd(
+            'graduates_by_school_gender',
+            ['school_year'] +
+            list(
+                GraduatesBySchoolGenderCOLUMNS.keys()))
         self._db.execute(sql_cmd, values)
         self._db.commit()
 
@@ -177,7 +183,8 @@ class RawSQLiteDAO(RawDataAccessObject):
         for row in rows:
             school_year, degree, degree_sum = row
             total += degree_sum
-            associate += degree_sum if degree in (TWO_YEAR_COLLEGE, FIVE_YEAR_COLLEGE) else 0
+            associate += degree_sum if degree in (
+                TWO_YEAR_COLLEGE, FIVE_YEAR_COLLEGE) else 0
             master += degree_sum if degree == MASTER else 0
             doctoral += degree_sum if degree == DOCTORAL else 0
 

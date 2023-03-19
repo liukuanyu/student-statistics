@@ -1,6 +1,7 @@
 from flask import Flask, request, Response, jsonify
-from dao import SQLiteDAO
-from metrics import prometheus_middleware, get_latest_metrics
+
+from .dao import SQLiteDAO
+from .metrics import prometheus_middleware, get_latest_metrics
 
 app = Flask(__name__)
 

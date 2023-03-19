@@ -1,7 +1,7 @@
 import argparse
 
-from raw_dao import RawSQLiteDAO
-from dao import SQLiteDAO
+from .raw_dao import RawSQLiteDAO
+from .dao import SQLiteDAO
 
 
 class Transformer:
@@ -25,13 +25,17 @@ class StudentsByGenderTransformer(Transformer):
             return
 
         try:
-            prev_year = self._raw_dao.select_students_by_gender(school_year - 1)
+            prev_year = self._raw_dao.select_students_by_gender(
+                school_year - 1)
         except KeyError:
             total_growth = male_growth = female_growth = None
         else:
-            total_growth = (this_year['total'] - prev_year['total']) / prev_year['total'] * 100
-            male_growth = (this_year['male'] - prev_year['male']) / prev_year['male'] * 100
-            female_growth = (this_year['female'] - prev_year['female']) / prev_year['female'] * 100
+            total_growth = (
+                this_year['total'] - prev_year['total']) / prev_year['total'] * 100
+            male_growth = (
+                this_year['male'] - prev_year['male']) / prev_year['male'] * 100
+            female_growth = (
+                this_year['female'] - prev_year['female']) / prev_year['female'] * 100
 
         data = (
             school_year,
