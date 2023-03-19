@@ -1,7 +1,7 @@
 import argparse
 
 from .raw_dao import RawSQLiteDAO
-from .dao import SQLiteDAO
+from .dao import SQLiteDAO, MySQLDAO
 
 
 class Transformer:
@@ -87,8 +87,17 @@ def main():
     dao_raw = RawSQLiteDAO()
     dao_raw.connect(db_path='raw.db')
 
-    dao_data = SQLiteDAO()
-    dao_data.connect(db_path='data.db')
+    # dao_data = SQLiteDAO()
+    # dao_data.connect(db_path='data.db')
+
+    dao_data = MySQLDAO()
+    dao_data.connect(
+        user='root',
+        password='my-secret-pw',
+        host='127.0.0.1',
+        database='statistics',
+        port=3306
+    )
     dao_data.init()
 
     for _, TRANSFORMER_CLASS in TRANSFORMERS.items():
