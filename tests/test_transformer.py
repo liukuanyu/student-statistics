@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import Mock, ANY
 
-from src.transformer import StudentsByGenderTransformer
+from tsmc.transformer import StudentsByGenderTransformer
 
 
 class TestStudentsByGenderTransformer(unittest.TestCase):

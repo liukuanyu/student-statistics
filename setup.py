@@ -10,4 +10,11 @@ setup(
         "requests",
         "prometheus_client"
     ],
+    entry_points = {
+        'console_scripts': [
+            'extract=tsmc.extractor:main',
+            'transform=tsmc.transformer:main',
+            'web-start=tsmc.app:main',
+        ]
+    }
 )

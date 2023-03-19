@@ -79,7 +79,8 @@ EXTRACTORS = {
     'graduates_by_school_gender': GraduatesBySchoolGenderExtractor
 }
 
-if __name__ == '__main__':
+
+def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--year', type=int, help='year to be processed')
     args = parser.parse_args()

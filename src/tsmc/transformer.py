@@ -31,11 +31,11 @@ class StudentsByGenderTransformer(Transformer):
             total_growth = male_growth = female_growth = None
         else:
             total_growth = (
-                this_year['total'] - prev_year['total']) / prev_year['total'] * 100
+                                   this_year['total'] - prev_year['total']) / prev_year['total'] * 100
             male_growth = (
-                this_year['male'] - prev_year['male']) / prev_year['male'] * 100
+                                  this_year['male'] - prev_year['male']) / prev_year['male'] * 100
             female_growth = (
-                this_year['female'] - prev_year['female']) / prev_year['female'] * 100
+                                    this_year['female'] - prev_year['female']) / prev_year['female'] * 100
 
         data = (
             school_year,
@@ -76,7 +76,8 @@ TRANSFORMERS = {
     'graduates_by_degree': GraduatesByDegreeTransformer
 }
 
-if __name__ == '__main__':
+
+def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--year', type=int, help='year to be processed')
     args = parser.parse_args()

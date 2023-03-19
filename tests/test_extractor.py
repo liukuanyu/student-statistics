@@ -1,6 +1,6 @@
 import unittest
 
-from src.extractor import CSVExtractor, StudentsBySchoolGenderExtractor
+from tsmc.extractor import CSVExtractor, StudentsBySchoolGenderExtractor
 
 
 class TestCSVExtractor(unittest.TestCase):
