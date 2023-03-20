@@ -1,6 +1,6 @@
 from flask import Flask, request, Response, jsonify
 
-from .dao import SQLiteDAO
+from .dao import SQLiteDAO, MySQLDAO
 from .metrics import prometheus_middleware, get_latest_metrics
 
 app = Flask(__name__)
@@ -14,8 +14,17 @@ def get_students_growth():
     if start_year is None or end_year is None:
         return Response('invalid request', 400)
 
-    dao = SQLiteDAO()
-    dao.connect(db_path='data.db')
+    # dao = SQLiteDAO()
+    # dao.connect(db_path='data.db')
+
+    dao = MySQLDAO()
+    dao.connect(
+        user='root',
+        password='my-secret-pw',
+        host='127.0.0.1',
+        database='statistics',
+        port=3306
+    )
     students = dao.select_students_by_gender(start_year, end_year)
     return jsonify({'counts': students})
 
@@ -27,8 +36,17 @@ def get_graduates_degree():
     if year is None:
         return Response('invalid request', 400)
 
-    dao = SQLiteDAO()
-    dao.connect(db_path='data.db')
+    # dao = SQLiteDAO()
+    # dao.connect(db_path='data.db')
+
+    dao = MySQLDAO()
+    dao.connect(
+        user='root',
+        password='my-secret-pw',
+        host='127.0.0.1',
+        database='statistics',
+        port=3306
+    )
     try:
         graduates = dao.select_graduates_by_degree(year)
     except KeyError:
@@ -43,8 +61,17 @@ def metrics():
 
 
 def main():
-    dao = SQLiteDAO()
-    dao.connect(db_path='data.db')
+    # dao = SQLiteDAO()
+    # dao.connect(db_path='data.db')
+
+    dao = MySQLDAO()
+    dao.connect(
+        user='root',
+        password='my-secret-pw',
+        host='127.0.0.1',
+        database='statistics',
+        port=3306
+    )
     app.dao = dao
     app.run()
 

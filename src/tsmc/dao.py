@@ -205,9 +205,9 @@ class MySQLDAO(DataAccessObject):
             AND school_year <= ?
             ORDER BY school_year;
         """
-        rows = self._cursor.execute(sql_cmd, (start_year, end_year))
+        self._cursor.execute(sql_cmd, (start_year, end_year))
         ret = []
-        for row in rows:
+        for row in self._cursor:
             ret.append({
                 'school_year': row[StudentsByGenderCOLUMNS['school_year']],
                 'total': row[StudentsByGenderCOLUMNS['total']],
@@ -230,8 +230,8 @@ class MySQLDAO(DataAccessObject):
             SELECT * FROM graduates_by_degree
             WHERE school_year = ?;
         """
-        res = self._cursor.execute(sql_cmd, (year,))
-        row = res.fetchone()
+        self._cursor.execute(sql_cmd, (year,))
+        row = self._cursor.fetchone()
         if row is None:
             raise KeyError(f'school_year={year} not exists')
 
