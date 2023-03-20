@@ -1,0 +1,27 @@
+groups:
+- name: Web-API-alert
+  rules:
+  - alert: High5xxErrorRate
+    expr: sum(rate(http_requests_total{status~"5\\d{2}"}[5m])) by (job) / sum(rate(http_requests_total[5m])) by (job) > 0.5
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: High HTTP 5xx Error Rate
+      description: '{{ $labels.job }} has a high rate (>0.5) of HTTP 5xx errors ({{ $value }}).'
+  - alert: High4xxErrorRate
+    expr: sum(rate(http_requests_total{status~"4\\d{2}"}[5m])) by (job) / sum(rate(http_requests_total[5m])) by (job) > 0.5
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: High HTTP 4xx Error Rate
+      description: '{{ $labels.job }} has a high rate (>0.5) of HTTP 4xx errors ({{ $value }}).'
+  - alert: ServiceDown
+    expr: up == 0
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: Service {{ $labels.job }} is down
+      description: '{{ $labels.job }} has been down for more than 5 minutes.'

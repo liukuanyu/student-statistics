@@ -1,0 +1,7 @@
+scrape_configs:
+  - job_name: 'tsmc'
+    static_configs:
+      - targets: ['localhost:5000']
+
+rule_files:
+  - /etc/prometheus/alert-rules.yml
