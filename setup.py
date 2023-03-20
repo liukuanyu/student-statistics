@@ -8,7 +8,8 @@ setup(
     install_requires=[
         "flask",
         "requests",
-        "prometheus_client"
+        "prometheus_client",
+        "mariadb==1.1.6"
     ],
     entry_points = {
         'console_scripts': [
